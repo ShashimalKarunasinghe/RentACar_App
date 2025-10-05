@@ -1,0 +1,35 @@
+<resources>
+    <!-- Reusable text styles (work without Material Components) -->
+    <style name="TitleText">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">bold</item>
+        <!-- System primary text color adapts to light/dark automatically -->
+        <item name="android:textColor">?android:attr/textColorPrimary</item>
+    </style>
+
+    <style name="BodyText">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">?android:attr/textColorPrimary</item>
+    </style>
+
+    <style name="SectionHeader">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">?android:attr/textColorPrimary</item>
+    </style>
+
+    <!-- Badge style without Material3 tokens -->
+    <style name="BadgeText">
+        <item name="android:padding">8dp</item>
+        <item name="android:textStyle">bold</item>
+        <!-- Use system accent as background; works on all themes -->
+        <item name="android:background">?android:attr/colorAccent</item>
+        <!-- Contrasting text on accent background -->
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="ErrorText">
+        <item name="android:textColor">@android:color/holo_red_dark</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+</resources>

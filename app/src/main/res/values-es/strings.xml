@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">ALQUILER DE AUTOS</string>
+
+    <string name="dark_mode">Modo oscuro</string>
+    <string name="search_hint">Buscar por nombre o modelo</string>
+    <string name="rent">Alquilar</string>
+    <string name="next">Siguiente</string>
+    <string name="save">Guardar</string>
+    <string name="cancel">Cancelar</string>
+    <string name="favourites">Favoritos</string>
+    <string name="favourite">Favorito</string>
+    <string name="no_cars">No hay autos disponibles</string>
+    <string name="menu_sort">Ordenar</string>
+    <string name="sort_rating">Puntuación (alta→baja)</string>
+    <string name="sort_year">Año (nuevo→antiguo)</string>
+    <string name="sort_cost">Costo (bajo→alto)</string>
+    <string name="credit_initial">Crédito: 500</string>
+    <string name="placeholder_dash">—</string>
+    <string name="car_image_desc">Imagen del auto</string>
+    <string name="days_placeholder">Días: 1 (Total: —)</string>
+    <string name="error_credit">Crédito insuficiente o costo por alquiler &gt; 400</string>
+    <string name="credit_value">Crédito: %1$d</string>
+    <string name="car_name_model">%1$s %2$s</string>
+    <string name="year_km">Año %1$d • %2$,d km</string>
+    <string name="cost_per_day">Costo: %1$d/día</string>
+    <string name="days_total_fmt">Días: %2$d (Total: %1$d)</string>
+    <string name="car_name_model_year">%1$s %2$s (%3$d)</string>
+</resources>
