@@ -6,11 +6,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.rentacar.data.Car
 import com.example.rentacar.databinding.ItemFavouriteBinding
 
-/**
- * Simple adapter for the horizontal favourites row.
- * - Shows car image + name
- * - onTap returns the car id so caller can toggle favourite or open details
- */
 class FavAdapter(
     private var items: List<Car>,
     private val onTap: (String) -> Unit
@@ -33,7 +28,6 @@ class FavAdapter(
 
     override fun getItemCount(): Int = items.size
 
-    /** Replace whole list (called from Activity when favourites change). */
     fun replace(newItems: List<Car>) {
         items = newItems
         notifyDataSetChanged()

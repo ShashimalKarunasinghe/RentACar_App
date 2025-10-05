@@ -3,10 +3,6 @@ package com.example.rentacar.data
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
-/**
- * Parcelable so we can pass a whole Car object in an Intent extra.
- * (Exactly what your tutorial describes with @Parcelize.)
- */
 @Parcelize
 data class Car(
     val id: String,

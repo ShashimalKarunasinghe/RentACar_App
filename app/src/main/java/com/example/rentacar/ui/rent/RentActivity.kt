@@ -23,7 +23,7 @@ class RentActivity : AppCompatActivity() {
         b = ActivityRentBinding.inflate(layoutInflater)
         setContentView(b.root)
 
-        // ✅ Android 13+ safe way to read Parcelable extra
+
         car = if (Build.VERSION.SDK_INT >= 33) {
             intent.getParcelableExtra(EXTRA_CAR, Car::class.java)!!
         } else {

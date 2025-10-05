@@ -6,28 +6,24 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!-- Keep toolbar for the Sort menu, hide title (we show our own) -->
+    <!-- Toolbar without menu (Sort is now a dropdown) -->
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:title=""
-        app:menu="@menu/menu_main"/>
+        app:title="" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="?attr/actionBarSize"
-        android:padding="0dp"
         android:paddingHorizontal="10dp">
 
-        <!-- ===================== ROW 1 : Search + Credit + Dark ===================== -->
-
-        <!-- ===================== ROW 2 : 3 Columns ===================== -->
+        <!-- Row 1: Search + Sort + Credit + Dark -->
         <LinearLayout
             android:id="@+id/rowTop"
-            android:layout_width="705dp"
-            android:layout_height="32dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:gravity="center_vertical"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
@@ -42,12 +38,32 @@
                 android:iconifiedByDefault="false"
                 android:queryHint="@string/search_hint" />
 
+            <!-- Sort dropdown placed between search and credit -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/sortLayout"
+                style="@style/Widget.Material3.TextInputLayout.FilledBox.ExposedDropdownMenu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:hint="@string/menu_sort"
+                app:endIconMode="dropdown_menu">
+
+                <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                    android:id="@+id/sortDropdown"
+                    android:layout_width="160dp"
+                    android:layout_height="wrap_content"
+                    android:inputType="none"
+                    android:importantForAutofill="no"
+                    android:maxLines="1"
+                    android:entries="@array/sort_options"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
             <TextView
                 android:id="@+id/tvCredit"
                 style="@style/BadgeText"
-                android:layout_width="97dp"
+                android:layout_width="wrap_content"
                 android:layout_height="32dp"
-                android:layout_marginStart="16dp"
+                android:layout_marginStart="12dp"
                 android:text="@string/credit_initial"
                 android:textAlignment="center"
                 android:textSize="12sp" />
@@ -56,10 +72,11 @@
                 android:id="@+id/switchDark"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
+                android:layout_marginStart="12dp"
                 android:text="@string/dark_mode" />
         </LinearLayout>
 
+        <!-- Card with image | details | heart -->
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/cardMain"
             android:layout_width="wrap_content"
@@ -74,12 +91,10 @@
             app:strokeWidth="1dp">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="wrap_content"
+                android:layout_width="666dp"
                 android:layout_height="wrap_content"
-                android:layout_margin="0dp"
                 android:padding="0dp">
 
-                <!-- Column guides (now with size attrs to silence lint) -->
                 <androidx.constraintlayout.widget.Guideline
                     android:id="@+id/g2_img_right"
                     android:layout_width="wrap_content"
@@ -92,14 +107,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    app:layout_constraintGuide_percent="0.76" />
+                    app:layout_constraintGuide_percent="0.9" />
 
-                <!-- Left: wide image (crop top/bottom) -->
-
-                <!-- Middle: details + rating -->
                 <ImageView
                     android:id="@+id/imgCar"
-                    android:layout_width="297dp"
+                    android:layout_width="350dp"
                     android:layout_height="129dp"
                     android:adjustViewBounds="true"
                     android:contentDescription="@string/car_image_desc"
@@ -116,6 +128,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
+                    android:gravity="center_horizontal"
                     android:orientation="vertical"
                     android:paddingStart="1dp"
                     android:paddingEnd="1dp"
@@ -129,6 +142,7 @@
                         style="@style/TitleText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
                         android:text="@string/placeholder_dash" />
 
                     <TextView
@@ -148,11 +162,6 @@
                         android:layout_marginBottom="6dp"
                         android:text="@string/placeholder_dash" />
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical"></LinearLayout>
-
                     <RatingBar
                         android:id="@+id/ratingBar"
                         android:layout_width="wrap_content"
@@ -163,10 +172,8 @@
                         android:scaleX="0.3"
                         android:scaleY="0.3"
                         android:stepSize="0.3" />
-
                 </LinearLayout>
 
-                <!-- Right: heart button -->
                 <FrameLayout
                     android:id="@+id/heartBox"
                     android:layout_width="0dp"
@@ -180,56 +187,53 @@
                         android:id="@+id/btnFav"
                         android:layout_width="48dp"
                         android:layout_height="48dp"
-                        android:layout_gravity="center"
                         android:background="?attr/selectableItemBackgroundBorderless"
                         android:contentDescription="@string/favourite"
-                        android:src="@drawable/ic_heart_outline" />
+                        android:src="@drawable/ic_heart_outline"
+                        app:tint="@color/heart_purple" />
+
                 </FrameLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
-
         </com.google.android.material.card.MaterialCardView>
 
-        <!-- ===================== ROW 3 : 2 Columns ===================== -->
 
-        <!-- Bottom split (fav list | big buttons) -->
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/g3_buttons_left"
+            android:orientation="vertical"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
             app:layout_constraintGuide_percent="0.58" />
 
-        <!-- Left: favourites -->
         <TextView
             android:id="@+id/lblFavs"
             style="@style/SectionHeader"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/favourites"
-            app:layout_constraintEnd_toStartOf="@+id/colButtons"
+            app:layout_constraintEnd_toEndOf="@id/g3_buttons_left"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cardMain" />
+            app:layout_constraintTop_toBottomOf="@id/cardMain" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvFavs"
-            android:layout_width="400dp"
+            android:layout_width="350dp"
             android:layout_height="0dp"
             android:layout_margin="10dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="8dp"
             android:layout_marginBottom="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/colButtons"
+            app:layout_constraintEnd_toStartOf="@id/g3_buttons_left"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/lblFavs" />
 
-        <!-- Right: two full-width rounded buttons (with symmetric padding) -->
         <LinearLayout
             android:id="@+id/colButtons"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
             android:gravity="center"
-            android:orientation="vertical"
+            android:orientation="horizontal"
             android:paddingStart="16dp"
             android:paddingTop="0dp"
             android:paddingEnd="16dp"
@@ -241,22 +245,20 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnNext"
-                android:layout_width="160dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="0dp"
-                android:layout_marginBottom="16dp"
+                android:layout_marginRight="8dp"
                 android:text="@string/next"
                 app:cornerRadius="32dp" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnRent"
-                android:layout_width="160dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="0dp"
+                android:layout_marginTop="0dp"
                 android:text="@string/rent"
                 app:cornerRadius="32dp" />
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

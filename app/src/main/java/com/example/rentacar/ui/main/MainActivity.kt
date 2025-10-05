@@ -2,6 +2,7 @@ package com.example.rentacar.ui.main
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
@@ -14,6 +15,7 @@ import com.example.rentacar.data.CreditManager
 import com.example.rentacar.databinding.ActivityMainBinding
 import com.example.rentacar.ui.adapters.FavAdapter
 import com.example.rentacar.ui.rent.RentActivity
+import com.google.android.material.textfield.MaterialAutoCompleteTextView
 
 class MainActivity : AppCompatActivity() {
 
@@ -41,17 +43,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(b.root)
         setSupportActionBar(b.toolbar)
 
-        // Overflow "Sort" menu
-        b.toolbar.setOnMenuItemClickListener { item ->
-            when (item.itemId) {
-                R.id.sort_rating -> { vm.sortByRating(); updateUI(vm.current()); true }
-                R.id.sort_year   -> { vm.sortByYear();   updateUI(vm.current()); true }
-                R.id.sort_cost   -> { vm.sortByCost();   updateUI(vm.current()); true }
-                else -> false
-            }
-        }
 
-        // Dark mode toggle
         b.switchDark.setOnCheckedChangeListener { _, on ->
             AppCompatDelegate.setDefaultNightMode(
                 if (on) AppCompatDelegate.MODE_NIGHT_YES
@@ -59,7 +51,7 @@ class MainActivity : AppCompatActivity() {
             )
         }
 
-        // Search
+
         b.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?) = false
             override fun onQueryTextChange(newText: String?): Boolean {
@@ -69,7 +61,20 @@ class MainActivity : AppCompatActivity() {
             }
         })
 
-        // Buttons on main card
+
+        val items = resources.getStringArray(R.array.sort_options)
+        val sortAdapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, items)
+        (b.sortDropdown as MaterialAutoCompleteTextView).setAdapter(sortAdapter)
+        (b.sortDropdown as MaterialAutoCompleteTextView).setOnItemClickListener { _, _, pos, _ ->
+            when (pos) {
+                0 -> vm.sortByRating()
+                1 -> vm.sortByYear()
+                2 -> vm.sortByCost()
+            }
+            updateUI(vm.current())
+        }
+
+
         b.btnNext.setOnClickListener { updateUI(vm.next()) }
         b.btnRent.setOnClickListener { vm.current()?.let { openRent(it) } }
         b.btnFav.setOnClickListener {
@@ -88,7 +93,7 @@ class MainActivity : AppCompatActivity() {
             true
         }
 
-        // Favourites RecyclerView — tap selects (does NOT toggle/remove)
+
         favAdapter = FavAdapter(emptyList()) { id ->
             val selected = vm.select(id)
             if (selected != null) {
@@ -107,7 +112,7 @@ class MainActivity : AppCompatActivity() {
             adapter = favAdapter
         }
 
-        // Initial state
+
         vm.refresh()
         updateUI(vm.current())
         updateCredit()

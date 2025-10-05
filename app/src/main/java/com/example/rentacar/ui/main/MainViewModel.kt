@@ -31,7 +31,7 @@ class MainViewModel : ViewModel() {
     fun favourites() = CarRepository.favourites()
     fun toggleFavourite(id: String) = CarRepository.toggleFavourite(id)
 
-    /** Select a car by id; returns the selected car or null if not available (e.g., rented). */
+
     fun select(id: String): Car? {
         var i = source.indexOfFirst { it.id == id }
         if (i >= 0) { index = i; return current() }
